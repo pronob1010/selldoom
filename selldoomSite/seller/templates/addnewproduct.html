@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main">
+    <div class="container">
+        <div class="row mb-10">
+            <div class="col-md-8 col-xl-8">
+                <div class="mr-xl-6">
+                    <div class="border-bottom border-color-1 mb-5">
+
+                    </div>
+                    <p class="max-width-830-xl text-gray-90">Maecenas dolor elit, semper a sem sed, pulvinar molestie
+                        lacus. Aliquam dignissim, elit non mattis ultrices, neque odio ultricies tellus, eu porttitor
+                        nisl ipsum eu massa.</p>
+                    <form class="js-validate" action="addnewproduct" method="POST" novalidate="novalidate">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Title
+                                    </label>
+                                    <input type="text" class="form-control" name="Title" placeholder="Title"
+                                        aria-label="" data-msg="Please enter subject." data-error-class="u-has-error"
+                                        data-success-class="u-has-success">
+                                </div>
+                                <!-- End Input -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        category
+                                    </label>
+                                    <!-- <input type="text" class="form-control" name="Categories" placeholder="category"
+                                        aria-label="" data-msg="Please enter subject." data-error-class="u-has-error"
+                                        data-success-class="u-has-success"> -->
+                                        
+                                        <select name="Categories" id="Categories" class="form-control" data-msg="Please enter a category.">
+                                            {% for cat in category %}
+                                            <option value="{{cat.title}}">{{cat.title}}</option>
+                                            {% endfor %}
+                                        </select>
+                                </div>
+                                <!-- End Input -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Sub-category
+                                    </label>
+                                    <input type="text" class="form-control" name="Sub-categories"
+                                        placeholder="Sub-category" aria-label="" data-msg="Please enter subject."
+                                        data-error-class="u-has-error" data-success-class="u-has-success">
+                                </div>
+                                <!-- End Input -->
+                            </div>
+                            <div class="col-md-4">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Selling Price
+                                    </label>
+                                    <input type="number" class="form-control" name="price" placeholder="Selling price"
+                                        aria-label="" data-msg="Please enter subject." data-error-class="u-has-error"
+                                        data-success-class="u-has-success">
+                                </div>
+                                <!-- End Input -->
+                            </div>
+                            <div class="col-md-4">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Offer Price
+                                    </label>
+                                    <input type="number" class="form-control" name="selling_price" placeholder="Selling Price"
+                                        aria-label="" data-msg="Offer Price" data-error-class="u-has-error"
+                                        data-success-class="u-has-success">
+                                </div>
+                                <!-- End Input -->
+                            </div>
+                            <div class="col-md-4">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Brand Name
+                                    </label>
+                                    <input type="text" class="form-control" name="brandname" placeholder="Brand Name"
+                                        aria-label="" data-msg="Please enter subject." data-error-class="u-has-error"
+                                        data-success-class="u-has-success">
+                                </div>
+                                <!-- End Input -->
+                            </div>
+                            <div class="col-md-12">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Upload Image
+                                    </label>
+                                    <input type="file" name="productImage" placeholder="Upload Image">
+                                </div>
+                                <!-- End Input -->
+                            </div>
+                            <div class="col-md-12">
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Product Description
+                                    </label>
+
+                                    <div class="input-group">
+                                        <textarea class="form-control p-5" rows="4" name="text"
+                                            placeholder="Product description here..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" value="SUBMIT" class="btn btn-primary-dark-w px-5">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-wd-3 col-xl-4">
+                <div class="border-bottom border-color-1 mb-5">
+
+                </div>
+                <div class="widget-column">
+                    <div class="border-bottom border-color-1 mb-5">
+                        <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Recently Added</h3>
+                    </div>
+                    <ul class="list-unstyled products-group">
+                         {% for product in products %}
+                        <li class="product-item product-item__list row no-gutters mb-6 remove-divider">
+                            <div class="col-auto">
+                                <a href="../shop/single-product-fullwidth.html"
+                                    class="d-block width-75 text-center"><img class="img-fluid"
+                                        src="{{product.productImg.url}}" alt="Image Description"></a>
+                            </div>
+                            <div class="col pl-4 d-flex flex-column">
+                                <h5 class="product-item__title mb-0"><a href="../shop/single-product-fullwidth.html"
+                                        class="text-blue font-weight-bold">{{product.product_Title}}</a></h5>
+                                <div class="prodcut-price mt-auto">
+                                    <div class="font-size-15">
+                                    {% if product.productoffer_price %}
+                                    <div class="font-size-15">{{product.product_Selling_price}}</div>
+                                    {% else %}
+                                    <ins class="font-size-15 text-red text-decoration-none">{{product.product_offer_price}}</ins>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- ========== END MAIN CONTENT ========== -->
+        {% endblock %}

@@ -216,6 +216,7 @@ def checkout(request):
     return render(request, 'checkout.html', context)
 
 def updateItem(request):
+    print("clicked att backend!")
     site_social_link = Social_Media.objects.get(id=1)
     site_info = Notice.objects.get(id=1)
     base_info = Website_Details.objects.get(id=1)
